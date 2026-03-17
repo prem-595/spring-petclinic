@@ -1,0 +1,17 @@
+pipeline {
+    agent { LABEL JAVA}
+    triggers {
+        poll scm { '* * * * * '}
+    }
+    stages {
+        stage ('build')
+           steps {
+             sh 'mvn package'
+           }
+        stage ('test')
+          steps {
+            sh 'mvn test'
+          }
+    }
+
+}
