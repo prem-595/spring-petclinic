@@ -1,5 +1,8 @@
 pipeline {
     agent { label 'JAVA' }
+     parameters{
+        choice(name : 'mvn goals' , choices :['package','clean install','validate'],description:'pick something' )
+    }
     stages {
         stage ('git checkout stage'){
             steps {
