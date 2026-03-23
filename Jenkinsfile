@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'JAVA' }
      parameters{
-        choice(name : 'mvn goals' , choices :['package','clean install','validate'],description:'pick something' )
+        choice(name : 'goals' , choices :['package','clean install','validate'],description:'pick something' )
     }
     stages {
         stage ('git checkout stage'){
@@ -13,7 +13,7 @@ pipeline {
             steps {
                     withCredentials([string(credentialsId:'sonar-token', variable: 'sonar')]) {
                     withSonarQubeEnv('SONAR') {
-                        sh "mvn ${params.mvn goals} sonar:sonar \
+                        sh "mvn ${params.goals} sonar:sonar \
                             -Dsonar.projectKey=prem-595_spring-petclinic \
                             -Dsonar.organization=prem-595 \
                             -Dsonar.host.url=https://sonarcloud.io/ \
